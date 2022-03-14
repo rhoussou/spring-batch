@@ -4,10 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Transient;
+import org.hibernate.annotations.GenericGenerator;
+import javax.persistence.*;
 import java.util.Date;
 
 
@@ -19,13 +17,16 @@ import java.util.Date;
 public class SampleEntity {
 
     @Id
-    private Long id;
+    @GeneratedValue(generator = "uuid")
+    @GenericGenerator(name = "uuid", strategy = "uuid2")
+    @Column(name = "ID", updatable = false, nullable = false)
+    private String id;
 
-    private Long accountID;
+    private String transactionID;
+
+    private String accountID;
 
     private Date transactionDate;
-    @Transient
-    private String strTransactionDate;
 
     private String transactionType;
 
